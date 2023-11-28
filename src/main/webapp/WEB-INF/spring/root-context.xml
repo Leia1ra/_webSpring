@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="
+	   			http://www.springframework.org/schema/beans
+			   	https://www.springframework.org/schema/beans/spring-beans.xsd
+			   	http://mybatis.org/schema/mybatis-spring
+			   	http://mybatis.org/schema/mybatis-spring.xsd
+			   	http://www.springframework.org/schema/tx
+			   	http://www.springframework.org/schema/tx/spring-tx-2.5.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- Datasource 객체 생성하기 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+<!--		<property name="url" value="jdbc:mysql://127.0.0.1/_JSP"/>-->
+		<property name="url" value="jdbc:mysql://localhost:3306/_JSP"/>
+		<property name="username" value="root"/>
+		<property name="password" value="tiger1234"/>
+	</bean>
+	<!--mybatis에서는 사용할 xml파일의 위치와 환경설정이 있는 정보를 이용하여
+	sqlSessionFactory 객체를 생성한다.
+	Datasoruce 의존주입
+	-->
+
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<!--의존 주입 (DI)-->
+		<property name="dataSource" ref="dataSource"/>
+		<property name="configLocation" value="classpath:mybatis-config.xml"/>
+		<property name="mapperLocations" value="classpath:/mapper/*Mapper.xml"/>
+		<!--<property name="mapperLocations" value="classpath*:/mapper/*Mapper.xml"/>-->
+	</bean>
+	<!-- interface가 있는 위치(dao) -->
+	<mybatis-spring:scan base-package="com.multi.campus.mapper"/>
+
+	<!-- 트랜잭션하는 마이바티스 객체를 생성 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- @Transactional annotation이용시-->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+</beans>

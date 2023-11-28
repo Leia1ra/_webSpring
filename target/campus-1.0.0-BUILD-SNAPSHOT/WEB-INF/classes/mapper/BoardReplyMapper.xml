@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.campus.mapper.BoardReplyMapper">
+    <insert id="replyInsert" >
+        INSERT INTO replyboard(userid, no, coment) values(#{userid}, #{no}, #{coment})
+    </insert>
+    <select id="replySelect" resultType="com.multi.campus.vo.BoardReplyVO">
+        SELECT replyno, no, coment, userid, writedate
+        FROM replyboard WHERE no=#{param1} ORDER BY replyno desc
+    </select>
+    <update id="replyUpdate">
+        UPDATE replyboard SET coment=#{coment} WHERE no=#{no} AND replyno=#{replyno}
+    </update>
+    <delete id="replyDelete">
+        DELETE FROM replyboard WHERE replyno=#{param1}
+    </delete>
+</mapper>

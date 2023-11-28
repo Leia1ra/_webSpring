@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.campus.mapper.DataMapper">
+    <select id="dataList" resultType="com.multi.campus.vo.DataVO">
+        SELECT no, subject, userid, hit, date_format(writedate,'%m-%d %H:%i') writedate
+        FROM data ORDER BY no DESC
+    </select>
+
+    <!-- insert 후 Auto Increment 로 생성된 값을 가져오기 -->
+    <!-- Increment 값은 매개변수의 vo에 담긴다. -->
+    <insert id="dataInsert"
+            parameterType="com.multi.campus.vo.DataVO"
+            keyProperty="no"
+            useGeneratedKeys="true">
+        INSERT INTO data(subject, content, userid) VALUES(#{subject},#{content},#{userid})
+    </insert>
+
+    <insert id="dataFileInsert" parameterType="java.util.List">
+        <foreach item="item"
+                 collection="list"
+                 open="INSERT INTO datafile(no, filename) VALUES"
+                 separator=",">
+            (#{item.no}, #{item.filename})
+        </foreach>
+    </insert>
+
+    <update id="dataHitCount">
+        UPDATE data SET hit = hit + 1 WHERE no = ${param1}
+    </update>
+
+    <select id="dataSelect" resultType="com.multi.campus.vo.DataVO">
+        SELECT * FROM data WHERE no = #{param1}
+    </select>
+
+    <select id="getDataFile" resultType="com.multi.campus.vo.DatafileVO">
+        SELECT * FROM datafile WHERE no=#{param1}
+    </select>
+
+    <!--parameterType="com.multi.campus.vo.DataVO"-->
+    <update id="dataUpdate" parameterType="com.multi.campus.vo.DataVO">
+        UPDATE data SET subject = #{subject}, content = #{content}
+        WHERE no = #{no} AND userid = #{userid}
+    </update>
+
+    <delete id="dataDelete">
+        DELETE FROM datafile WHERE no = #{param1}
+    </delete>
+
+    <delete id="dataRecordDelete">
+        DELETE FROM data WHERE no=#{param1} AND userid=#{param2}
+    </delete>
+</mapper>

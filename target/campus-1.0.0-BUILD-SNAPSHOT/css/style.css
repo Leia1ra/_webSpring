@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+/* main content */
+body {
+	margin: 0;
+	padding: 0;
+}
+
+main {
+	width: 1000px;
+	margin: 0 auto;
+}
+
+main>.h {
+	width: 50%;
+	height: 400px;
+}

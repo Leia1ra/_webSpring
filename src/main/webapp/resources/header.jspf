@@ -1,0 +1,31 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<html>
+<head>
+    <title>Title</title>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/css/MainStyle.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<body>
+<!-- 페이지 상단 -->
+<header>
+    <div><a href="<%=request.getContextPath()%>/">멀티캠퍼스</a></div>
+    <nav class="topMenu">
+        <ul>
+            <c:if test="${logStatus == '' || logStatus != 'Y'}">
+                <li><a href="<%=request.getContextPath()%>/users/login">로그인</a></li>
+                <li><a href="<%=request.getContextPath()%>/users/userForm">회원가입</a></li>
+            </c:if>
+            <c:if test="${logStatus != '' && logStatus == 'Y'}">
+                <li><a href="<%=request.getContextPath()%>/users/logout">로그아웃</a></li>
+                <li><a href="">회원정보수정</a></li>
+            </c:if>
+
+            <li><a href="<%=request.getContextPath()%>/board/list">커뮤니티</a></li>
+            <li><a href="<%=request.getContextPath()%>/data/list">자료실</a></li>
+        </ul>
+    </nav>
+</header>
+</body>
+</html>

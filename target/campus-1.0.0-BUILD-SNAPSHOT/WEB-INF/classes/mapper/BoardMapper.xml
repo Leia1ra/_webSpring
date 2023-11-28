@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.campus.mapper.BoardMapper">
+    <insert id="boardInsert">
+        INSERT INTO board(subject, content, userid, ip)
+        VALUES(#{subject}, #{content}, #{userid}, #{ip})
+    </insert>
+    <select id="boardPageList" resultType="com.multi.campus.vo.BoardVO"> <!--writedate-->
+        SELECT no, subject, userid, hit, DATE_FORMAT(writedate,'%m-%d %H:%i') writedate
+        FROM board
+        <if test="searchWord != null">
+            WHERE ${searchKey} LIKE '%${searchWord}%'
+        </if>
+        ORDER BY no DESC
+        LIMIT ${onePageRecord}
+        OFFSET ${offsetPoint}
+
+    </select>
+    <select id="totalRecord" resultType="int">
+        SELECT COUNT(no) FROM board
+        <if test="searchWord != null">
+            WHERE ${searchKey} LIKE '%${searchWord}%'
+        </if>
+    </select>
+    <select id="boardSelect" resultType="com.multi.campus.vo.BoardVO">
+        SELECT no, subject, content, userid, hit, writedate FROM board WHERE no=${param1}
+    </select>
+    <update id="hitCount">
+        UPDATE board SET hit = hit + 1 WHERE no = ${param1}
+    </update>
+
+    <update id="boardUpdate">
+        UPDATE board SET subject=#{subject}, content=#{content} WHERE no=${no}
+    </update>
+
+    <delete id="boardDelete">
+        DELETE FROM board WHERE no=${no}
+        <!--DELETE FROM board WHERE no=${param1}-->
+    </delete>
+</mapper>

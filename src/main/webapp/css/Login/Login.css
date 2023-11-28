@@ -1,0 +1,89 @@
+
+body{
+    background-color: #202020;
+}
+/*로그인//////////////////////////////////////////////////////////////////*/
+#container{
+    color: white;
+    text-decoration: none;
+}
+#Login{
+    margin: 10px auto;
+    padding: 30px;
+    width: 100%;
+    max-width: 750px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#Login>h2{
+    width: 100%;
+    font-size: 2rem;
+    margin: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    color: rgb(255, 159, 41);
+
+    border-bottom: 2px solid white;
+}
+#Login>form{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+/*Form태그 내부의 입력 관련한 내용*/
+#formInput{
+    margin-bottom: 10px;
+}
+#formInput>input{
+    width: 100%;
+    height: 50px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 1rem;
+}
+/*Form태그 내부의 클릭 관련한 내용*/
+#logfrm{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+}
+/*회원가입/아이디 비밀번호 찾기*/
+#logfrm>div{
+    flex-grow: 1;
+    text-decoration: none;
+}
+#logfrm>div>a{
+    text-decoration: none;
+    color: white;
+}
+/*로그인 정보 기억*/
+#logfrm>label{
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end;
+    height: 20px;
+}
+#logfrm>label>#Auto {
+    width: 20px;
+    height: 20px;
+    margin: 0 0 0 10px;
+}
+#logfrm>label>#Auto:checked{
+    accent-color: rgb(255, 159, 41);
+}
+/*로그인 버튼*/
+#Login>form>input{
+    height: 50px;
+    border: 1px solid white;
+    border-radius: 5px;
+    flex-grow: 1;
+    background-color: rgb(255, 159, 41);
+    color: black;
+    font-size: 1rem;
+    font-weight: 800;
+}
+/*로그인//////////////////////////////////////////////////////////////////*/

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.multi.campus.mapper.UsersMapper">
+    <select id="idCheck" resultType="int">
+        SELECT COUNT(userid) FROM users WHERE userid=#{param1}
+        <!--select count(userid) from users where userid=#{param1}-->
+    </select>
+    <!--회원가입-->
+    <insert id="usersInsert">
+        INSERT INTO users(userid, userpwd, username, tel, email, zipcode, addr, addrdetail, hobby)
+        VALUES(
+            #{userid},
+            #{userpwd},
+            #{username},
+            #{tel},
+            #{email},
+            #{zipcode},
+            #{addr},
+            #{addrdetail},
+            #{hobbyText}
+        )
+    </insert>
+    <select id="loginSelect" resultType="com.multi.campus.vo.UsersVO">
+        SELECT userid, username FROM users WHERE userid=#{param1} and userpwd=#{param2}
+    </select>
+</mapper>
